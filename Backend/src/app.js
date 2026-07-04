@@ -7,7 +7,7 @@ import cors from 'cors';
 
 
 app.use(cors({
-  origin: 'https://ai-resume-analyzer-604jmjs6s-loneubaid251-6392s-projects.vercel.app/login',  // Replace with your frontend URL
+  origin: 'https://ai-resume-analyzer-604jmjs6s-loneubaid251-6392s-projects.vercel.app',  // Replace with your frontend URL
   credentials: true
 }));
 app.use(express.json());
