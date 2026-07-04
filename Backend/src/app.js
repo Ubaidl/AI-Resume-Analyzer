@@ -4,6 +4,8 @@ import resumerouter from './routes/resumeanalysis.routes.js';
 const app = express();
 import cookieParser from "cookie-parser";
 import cors from 'cors';
+app.use(express.json());
+app.use(cookieParser());
 
 
 app.use(cors({
@@ -14,8 +16,7 @@ app.use(cors({
   ],  // Replace with your frontend URL
   credentials: true
 }));
-app.use(express.json());
-app.use(cookieParser());
+
 
 
 
