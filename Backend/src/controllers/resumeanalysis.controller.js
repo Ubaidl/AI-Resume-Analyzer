@@ -1,4 +1,4 @@
-import ResumeAnalysismodel from "../models/resumeanalysis.model.js"
+import ResumeAnalysismodel from "../models/ResumeAnalysis.model.js"
 import analysisResumeandgetscoreandinterviewquestion from "../services/ai.service.js"
 import { PDFParse } from "pdf-parse";
 
