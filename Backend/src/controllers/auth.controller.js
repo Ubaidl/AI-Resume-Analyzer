@@ -48,11 +48,24 @@ const loginUser = async (req, res) => {
         message: "User does not exist",
       });
     }
+    console.log("Entered Password:", password);
+console.log("Stored Hash:", existingUser.password);
+
+const isPasswordMatch = await bcrypt.compare(
+  password,
+  existingUser.password
+);
+
+console.log("Password Match:", isPasswordMatch);
 
     const isPasswordMatch = await bcrypt.compare(
       password,
       existingUser.password
     );
+
+    console.log("Entered Password:", password);
+console.log("Stored Hash:", existingUser.password);
+console.log("Password Match:", isPasswordMatch);
 
     if (!isPasswordMatch) {
       return res.status(400).json({

@@ -39,12 +39,18 @@ const Login = () => {
     return;
   }
 
-  try {
-    await handleLogin(email, password);
-    navigate("/");
-  } catch (error) {
-    alert("Invalid email or password");
+try {
+  await handleLogin(email, password);
+  navigate("/");
+} catch (error) {
+  console.log(error);
+
+  if (error?.message) {
+    alert(error.message);
+  } else {
+    alert("Something went wrong.");
   }
+}
 };
 
 

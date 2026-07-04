@@ -12,9 +12,9 @@ const API_URL = `${import.meta.env.VITE_API_URL}/api/auth`;
             withCredentials:true
         });
         return response.data;
-    } catch (error) {
-        throw error.response.data;
-    }
+    }catch (error) {
+    throw error.response?.data || { message: error.message };
+}
 
 };
  
@@ -29,8 +29,8 @@ export const login = async ({email,password}) =>{
         });
         return response.data;
     } catch (error) {
-        throw error.response.data;
-    }
+    throw error.response?.data || { message: error.message };
+}
 };
 
 export const logout = async () =>{
