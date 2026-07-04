@@ -10,59 +10,147 @@ const groq = new Groq({
 });
 
 async function analysisResumeandgetscoreandinterviewquestion(resume,jobDescription) {
-  const prompt = `
-You are an expert technical resume analyzer and interview coach.
+ const prompt = `
+You are an expert ATS Resume Analyzer and AI Interview Coach.
 
-Your task has two parts:
+IMPORTANT:
+Before performing any analysis, first determine whether the provided job description is valid.
 
-PART 1 — ANALYSIS
-Carefully compare the candidate's resume against the job description below.
+A VALID job description should include most of the following:
+- A clear job title
+- Responsibilities
+- Required skills or technologies
+- Qualifications or experience
+- Meaningful professional language
+
+An INVALID job description includes:
+- Random characters
+- Random words
+- Gibberish
+- Single letters
+- Very short text
+- Text that is not describing a real job
+
+Examples of INVALID input:
+"a"
+"abc"
+"asdfgh"
+"123456"
+"hello"
+"test"
+
+If the job description is INVALID, DO NOT analyze the resume.
+
+Instead return ONLY this JSON:
+
+{
+  "success": false,
+  "message": "Please provide a valid job description."
+}
+
+If the job description is valid, continue with the analysis below.
+
+-------------------------
+PART 1 — RESUME ANALYSIS
+-------------------------
+
+Carefully compare the candidate's resume against the job description.
+
 Evaluate:
-- How well the candidate's skills, tools, and experience align with the role's requirements
-- Relevant strengths that match the job description
-- Any notable gaps or missing skills relative to the job description
 
-Based on this analysis, assign a "matchScore" from 0 to 100, where:
-- 90-100 = excellent match, nearly all key requirements met
-- 70-89 = strong match, minor gaps
-- 50-69 = moderate match, some important gaps
-- below 50 = weak match, significant gaps
+- Skill match
+- Technology match
+- Project relevance
+- Experience relevance
+- Missing skills
+- Overall suitability
 
+Assign a matchScore from 0-100.
+
+Scoring Guide:
+
+90-100 = Excellent match
+
+70-89 = Strong match
+
+50-69 = Moderate match
+
+Below 50 = Weak match
+
+-------------------------
 PART 2 — INTERVIEW QUESTIONS
-Using the SAME analysis, generate interview questions that probe the candidate's fit for this specific role:
+-------------------------
 
-- Generate exactly 3 technical questions: based on the technical skills, tools, and projects mentioned in the resume, tailored to what the job description requires
-- Generate exactly 3 behavioral questions: based on the candidate's work history, role transitions, or soft skills implied by the resume, tailored to what the role likely demands
+Generate exactly:
 
-For every question, include:
-- "question": the interview question itself, grounded in specific resume details (not generic)
-- "intension": what the interviewer is actually trying to assess by asking this, and why it matters for this role
-- "answer": a strong sample answer written in first person, as if the candidate is answering, using specific details from the resume
+- 3 Technical Questions
+- 3 Behavioral Questions
 
-INPUT DATA
+Every question must be directly related to BOTH the resume and the job description.
+
+For every question include:
+
+- question
+- intention
+- answer
+
+The answer should be written in first person as if the candidate is responding.
+
+-------------------------
+INPUT
+-------------------------
 
 Resume:
+
 ${resume}
 
 Job Description:
+
 ${jobDescription}
 
-OUTPUT FORMAT
+-------------------------
+OUTPUT
+-------------------------
 
-Respond with ONLY valid JSON. No markdown, no code fences, no commentary before or after. Match this exact structure:
+Return ONLY valid JSON.
 
 {
+  "success": true,
   "matchScore": number,
-  "matchSummary": "string - 2-3 sentence summary of why this score was given, mentioning key strengths and gaps",
+  "matchSummary": "string",
   "technicalQuestions": [
-    { "question": "string", "intention": "string", "answer": "string" },
-    { "question": "string", "intention": "string", "answer": "string" },
-    { "question": "string", "intention": "string", "answer": "string" }
+    {
+      "question": "string",
+      "intention": "string",
+      "answer": "string"
+    },
+    {
+      "question": "string",
+      "intention": "string",
+      "answer": "string"
+    },
+    {
+      "question": "string",
+      "intention": "string",
+      "answer": "string"
+    }
   ],
   "behaviorQuestions": [
-    { "question": "string", "intention": "string", "answer": "string" },
-    { "question": "string", "intention": "string", "answer": "string" },
-    { "question": "string", "intention": "string", "answer": "string" }
+    {
+      "question": "string",
+      "intention": "string",
+      "answer": "string"
+    },
+    {
+      "question": "string",
+      "intention": "string",
+      "answer": "string"
+    },
+    {
+      "question": "string",
+      "intention": "string",
+      "answer": "string"
+    }
   ]
 }
 `;
