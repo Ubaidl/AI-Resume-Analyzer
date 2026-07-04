@@ -9,8 +9,12 @@ app.use(cookieParser());
 
 
 app.use(cors({
-  origin: "https://ai-resume-analyzer-604jmjs6s-loneubaid251-6392s-projects.vercel.app",
-  credentials: true,
+  
+  origin: [
+    "http://localhost:5173",
+    "https://ai-resume-analyzer-604jmjs6s-loneubaid251-6392s-projects.vercel.app"
+  ],  // Replace with your frontend URL
+  credentials: true
 }));
 
 
